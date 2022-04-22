@@ -3,19 +3,34 @@ package bullscows;
 public class Grader {
     String goal;
     String range;
+    String validSymbols;
 
 
-    public Grader(String goal, String range) {
+    public Grader(String goal, String range, String validSymbols) {
         this.goal = goal;
         this.range = range;
+        this.validSymbols = validSymbols;
     }
 
-    public boolean grade(String guess) {
-//        if (guess.length() != goal.length()) {
-//            throw new WrongSizeException("You must enter" + goal.length() + "characters");
+    public boolean grade(String guess) throws WrongSizeException, InvalidCharactersExeption {
+        if (guess.length() != goal.length()) {
+            throw new WrongSizeException("Error. You must enter" + goal.length() + "characters");
+        }
+//        if (containsInvalidChars(guess)) {
+//            throw new InvalidCharactersExeption("Error: Your guess must contain only " + range);
 //        }
         getGrades(guess);
         return goal.equals(guess);
+    }
+
+    private boolean containsInvalidChars(String guess) {
+        for (int i = 0; i < guess.length(); i++) {
+            String current = String.valueOf(guess.charAt(i));
+            if (!validSymbols.contains(current)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     String getInitialMsg() {
