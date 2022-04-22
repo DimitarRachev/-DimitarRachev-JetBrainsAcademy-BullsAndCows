@@ -33,8 +33,6 @@ public class Main {
                 grader = generateGrader();
             } catch (WrongSizeException | NotANumberException e) {
                 System.out.println(e.getMessage());
-                //TODO remove this unnecessary exit after completion of the game
-                System.exit(0);
             }
         }
         return grader;

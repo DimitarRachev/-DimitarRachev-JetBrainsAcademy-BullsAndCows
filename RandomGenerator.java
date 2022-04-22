@@ -45,7 +45,6 @@ public class RandomGenerator {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            //TODO check range of randomgenerator
             String next = symbols.get(random.nextInt(numSymbols));
             if (sb.indexOf(next) == -1) {
                 sb.append(next);
