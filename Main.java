@@ -11,14 +11,15 @@ public class Main {
         while (grader == null) {
             try {
                 grader = generateGrader();
-            }catch (WrongSizeException e) {
+            } catch (WrongSizeException e) {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println(grader.getInitialMsg());
         System.out.println("Okay, let's start a game!");
         int counter = 1;
         while (true) {
-            System.out.println("Turn "+counter+":");
+            System.out.println("Turn " + counter + ":");
             String guess = scanner.nextLine();
             counter++;
             if (grader.grade(guess)) {
@@ -27,15 +28,20 @@ public class Main {
             }
         }
     }
-      static int getRandomNumber() throws WrongSizeException {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Please, enter the secret code's length:");
-                RandomGenerator generator = new RandomGenerator(Integer.parseInt(scanner.nextLine()));
-                return generator.generate();
-        }
+
+    static RandomGenerator getRandomNumber() throws WrongSizeException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please, enter the secret code's length:");
+        int size = Integer.parseInt(scanner.nextLine());
+        System.out.println("Input the number of possible symbols in the code:");
+        int numSymbols = Integer.parseInt(scanner.nextLine());
+        return new RandomGenerator(size, numSymbols);
+    }
 
 
     private static Grader generateGrader() throws WrongSizeException {
-            return new Grader(getRandomNumber());
+        RandomGenerator randomGenerator = getRandomNumber();
+        Grader grader = new Grader(randomGenerator.generate(), randomGenerator.getRange());
+        return grader;
     }
 }
