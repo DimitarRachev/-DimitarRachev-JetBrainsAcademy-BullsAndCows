@@ -1,40 +1,39 @@
 package bullscows;
 
+import java.util.LinkedHashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class RandomGenerator {
-    long pseudoRandomNumber;
     int size;
 
-    public RandomGenerator(int size) throws IllegalArgumentException {
-        this.pseudoRandomNumber = System.nanoTime();
-        try {
-            this.size = checkSize(size);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+    public RandomGenerator(int size) throws WrongSizeException {
+        setSize(size);
     }
 
-    private int checkSize(int size) throws IllegalArgumentException {
+    public void setSize(int size) throws WrongSizeException {
         if (size > 10) {
-            throw new IllegalArgumentException("Error: can't generate a secret number with a length of " + size + " because there aren't enough unique digits.");
+            throw new WrongSizeException("Error: can't generate a secret number with a length of " + size + " because there aren't enough unique digits.");
         }
-        return size;
+        this.size = size;
     }
 
     int generate() {
-        StringBuilder result = new StringBuilder();
-        String generated = String.valueOf(pseudoRandomNumber);
-        for (int i = generated.length() - 1; i >= 0; i--) {
-            if (result.indexOf(String.valueOf(generated.charAt(i))) == -1) {
-                if (result.length() == 0 && generated.charAt(i) == '0') {
-                    continue;
-                }
-                result.append(generated.charAt(i));
-                if (result.length() == size) {
-                    return Integer.parseInt(result.toString());
-                }
+        Random random = new Random();
+        Set<Integer> num = new LinkedHashSet<>();
+        int counter = 0;
+        while (num.size() < size) {
+            int i = random.nextInt(10);
+            while (counter == 0 && i == 0) {
+                i = random.nextInt(10);
             }
+            num.add(i);
+            counter++;
         }
-        pseudoRandomNumber = System.nanoTime();
-        return generate();
+        StringBuilder sb = new StringBuilder();
+        for (Integer integer : num) {
+            sb.append(integer);
+        }
+        return Integer.parseInt(sb.toString());
     }
 }

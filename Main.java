@@ -11,7 +11,7 @@ public class Main {
         while (grader == null) {
             try {
                 grader = generateGrader();
-            }catch (IllegalArgumentException e) {
+            }catch (WrongSizeException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -27,23 +27,15 @@ public class Main {
             }
         }
     }
-      static int getRandomNumber () {
-            try {
+      static int getRandomNumber() throws WrongSizeException {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Please, enter the secret code's length:");
                 RandomGenerator generator = new RandomGenerator(Integer.parseInt(scanner.nextLine()));
                 return generator.generate();
-            } catch (IllegalArgumentException e) {
-               throw new IllegalArgumentException (e.getMessage());
-            }
         }
 
 
-    private static Grader generateGrader() {
-        try {
+    private static Grader generateGrader() throws WrongSizeException {
             return new Grader(getRandomNumber());
-        }catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
     }
 }
