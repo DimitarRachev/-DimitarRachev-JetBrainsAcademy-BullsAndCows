@@ -36,9 +36,7 @@ public class Grader {
     String getInitialMsg() {
         StringBuilder sb = new StringBuilder();
         sb.append("The secret is prepared: ");
-        for (int i = 0; i < goal.length(); i++) {
-            sb.append("*");
-        }
+        sb.append("*".repeat(goal.length()));
         sb.append(" ").append(range).append(".");
         return sb.toString();
     }
