@@ -14,11 +14,11 @@ public class Grader {
 
     public boolean grade(String guess) throws WrongSizeException, InvalidCharactersExeption {
         if (guess.length() != goal.length()) {
-            throw new WrongSizeException("Error. You must enter" + goal.length() + "characters");
+            throw new WrongSizeException("Error. You must enter " + goal.length() + " characters");
         }
-//        if (containsInvalidChars(guess)) {
-//            throw new InvalidCharactersExeption("Error: Your guess must contain only " + range);
-//        }
+        if (containsInvalidChars(guess)) {
+            throw new InvalidCharactersExeption("Error: Your guess must contain only " + range);
+        }
         getGrades(guess);
         return goal.equals(guess);
     }
