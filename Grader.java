@@ -10,18 +10,18 @@ public class Grader {
 
     }
 
-    public boolean grade(int guess) {
-        if (guess == goal) {
-            System.out.println("Grade: 4 bull(s) and 1 cow(s). The secret code is " + guess + ".");
-            return true;
-        }
+    public boolean grade(String guess) {
+        getGrades(guess);
+        return Integer.parseInt(guess) == goal;
+    }
+
+    private void getGrades(String guess) {
         int bulls = 0;
         int cows = 0;
-        String guessToString = String.valueOf(guess);
-        for (int i = 0; i < guessToString.length(); i++) {
-            if (guessToString.charAt(i) == goalToString.charAt(i)) {
+        for (int i = 0; i < guess.length(); i++) {
+            if (guess.charAt(i) == goalToString.charAt(i)) {
                 bulls++;
-            } else if (goalToString.contains(String.valueOf(guessToString.charAt(i)))) {
+            } else if (goalToString.contains(String.valueOf(guess.charAt(i)))) {
                 cows++;
             }
         }
@@ -35,6 +35,5 @@ public class Grader {
         } else {
             System.out.println("Grade: " + bulls + " bull(s) and " + cows + " cow(s). The secret code is " + goal + ".");
         }
-        return false;
     }
 }
